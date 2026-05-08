@@ -10,13 +10,15 @@ config_version=5
 
 [application]
 
-config/name="MemoryGame"
+config/name="Memory Game Pro"
+config/description="Juego de memoria con estructuras dinámicas"
 run/main_scene="res://scenes/MenuScene.tscn"
-config/features=PackedStringArray("4.1")
-config/icon="res://sprites/card-exchange.png"
+config/features=PackedStringArray("4.5")
+config/icon="res://icon.png"
 
-[display]
+[audio]
 
+default_bus_layout="res://audio/default_bus_layout.tres"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
@@ -27,6 +29,25 @@ window/size/height=1080
 window/size/test_width=960
 window/size/test_height=540
 
+[display]
+
+window/size/mode=2
+window/stretch/mode="canvas_items"
+window/per_pixel_transparency/allowed=true
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=960
+window/size/test_height=540
+
+[input]
+
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":16777217,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
 environment/default_environment="res://default_env.tres"

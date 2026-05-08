@@ -13,4 +13,3 @@ func _input_event(_viewport, event, _shape_idx):
 
 func on_click():
 	get_parent().get_node("Background").texture = my_texture
-

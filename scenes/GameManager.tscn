@@ -1,368 +1,176 @@
-[gd_scene load_steps=10 format=3 uid="uid://duddphxmj58bg"]
+[gd_scene load_steps=6 format=3 uid="uid://duddphxmj58bg"]
 
-[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/Card.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://e7j5dn3oa22o" path="res://sprites/dandelion-flower.png" id="3"]
-[ext_resource type="Script" path="res://scripts/CardOneName.gd" id="5"]
-[ext_resource type="Script" path="res://scripts/CardTwoName.gd" id="6"]
-[ext_resource type="FontFile" uid="uid://cxuft2yrjm7pw" path="res://fonts/Symtext.ttf" id="6_qtkwh"]
+[ext_resource type="Script" uid="uid://xjxnvocxh53s" path="res://scripts/GameManager.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://cfre2pgypv43k" path="res://scenes/Card.tscn" id="2_rtub8"]
+[ext_resource type="Texture2D" uid="uid://be5tlge5otdq5" path="res://sprites/game_background_1.png" id="3_jg7te"]
+[ext_resource type="Texture2D" uid="uid://chgu088urlr1n" path="res://sprites/game_background_3. 2.png" id="4_mx40s"]
+[ext_resource type="Texture2D" uid="uid://b7h7uuhdbe75y" path="res://sprites/game_background_4.png" id="5_2uts2"]
 
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(503.378, 500.964)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cb42s"]
-bg_color = Color(0.101961, 0.101961, 0.101961, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lspja"]
-bg_color = Color(0.196078, 0.196078, 0.196078, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[node name="GameManger" type="Node2D"]
+[node name="GameManger" type="Node2D" node_paths=PackedStringArray("grid_container", "background_sprite", "ui_lives_label", "ui_score_label", "ui_timer_label", "ui_question_panel", "ui_question_text", "ui_answer_buttons", "ui_game_over_panel", "ui_win_panel", "ui_final_score_label", "sfx_flip", "sfx_match", "sfx_error", "sfx_victory", "music_player")]
 position = Vector2(90, 0)
 script = ExtResource("1")
+card_scene = ExtResource("2_rtub8")
+grid_container = NodePath("UI/CenterContainer/GridContainer")
+background_sprite = NodePath("Background")
+ui_lives_label = NodePath("UI/HBoxContainer/LivesLabel")
+ui_score_label = NodePath("UI/HBoxContainer/ScoreLabel")
+ui_timer_label = NodePath("UI/HBoxContainer/TimerLabel")
+ui_question_panel = NodePath("UI/QuestionPanel")
+ui_question_text = NodePath("UI/QuestionPanel/CenterContainer/VBoxContainer/QuestionText")
+ui_answer_buttons = [NodePath("UI/QuestionPanel/CenterContainer/VBoxContainer/AnswerButton1"), NodePath("UI/QuestionPanel/CenterContainer/VBoxContainer/AnswerButton2"), NodePath("UI/QuestionPanel/CenterContainer/VBoxContainer/AnswerButton3"), NodePath("UI/QuestionPanel/CenterContainer/VBoxContainer/AnswerButton4")]
+ui_game_over_panel = NodePath("UI/GameOverPanel")
+ui_win_panel = NodePath("UI/WinPanel")
+ui_final_score_label = NodePath("UI/WinPanel/CenterContainer/VBoxContainer/FInalScoreLabel")
+sfx_flip = NodePath("Audio/FlipSound")
+sfx_match = NodePath("Audio/MatchSound")
+sfx_error = NodePath("Audio/ErrorSound")
+sfx_victory = NodePath("Audio/VictorySound")
+music_player = NodePath("Audio/MusicPlayer")
+bg_easy = ExtResource("3_jg7te")
+bg_normal = ExtResource("4_mx40s")
+bg_hard = ExtResource("5_2uts2")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="TimerLabel" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+
+[node name="LivesLabel" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuestionPanel" type="Panel" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/QuestionPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/QuestionPanel/CenterContainer"]
+layout_mode = 2
+
+[node name="QuestionText" type="Label" parent="UI/QuestionPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AnswerButton1" type="Button" parent="UI/QuestionPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AnswerButton2" type="Button" parent="UI/QuestionPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AnswerButton3" type="Button" parent="UI/QuestionPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AnswerButton4" type="Button" parent="UI/QuestionPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GameOverPanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Card1" type="Area2D" parent="."]
-position = Vector2(960, 180)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOverPanel/CenterContainer"]
+layout_mode = 2
 
-[node name="Sprite" type="Sprite2D" parent="Card1"]
-texture = ExtResource("3")
+[node name="GameOverText" type="Label" parent="UI/GameOverPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Perdiste!"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card1"]
-shape = SubResource("1")
+[node name="RestartButton" type="Button" parent="UI/GameOverPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reiniciar"
 
-[node name="Card17" type="Area2D" parent="."]
-position = Vector2(1140, 180)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
+[node name="MainMenuButton" type="Button" parent="UI/GameOverPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volver al menu"
 
-[node name="Sprite" type="Sprite2D" parent="Card17"]
-texture = ExtResource("3")
+[node name="WinPanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card17"]
-shape = SubResource("1")
+[node name="CenterContainer" type="CenterContainer" parent="UI/WinPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Card9" type="Area2D" parent="."]
-position = Vector2(600, 180)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/WinPanel/CenterContainer"]
+layout_mode = 2
 
-[node name="Sprite" type="Sprite2D" parent="Card9"]
-texture = ExtResource("3")
+[node name="WinText" type="Label" parent="UI/WinPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card9"]
-shape = SubResource("1")
+[node name="FInalScoreLabel" type="Label" parent="UI/WinPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
 
-[node name="Card5" type="Area2D" parent="."]
-position = Vector2(780, 180)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
+[node name="RestartButton" type="Button" parent="UI/WinPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reiniciar nivel"
 
-[node name="Sprite" type="Sprite2D" parent="Card5"]
-texture = ExtResource("3")
+[node name="MainButton" type="Button" parent="UI/WinPanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volver al menu"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card5"]
-shape = SubResource("1")
+[node name="Audio" type="Node" parent="."]
 
-[node name="Card24" type="Area2D" parent="."]
-position = Vector2(1320, 180)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="Audio"]
 
-[node name="Sprite" type="Sprite2D" parent="Card24"]
-texture = ExtResource("3")
+[node name="FlipSound" type="AudioStreamPlayer" parent="Audio"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card24"]
-shape = SubResource("1")
+[node name="MatchSound" type="AudioStreamPlayer" parent="Audio"]
 
-[node name="Card16" type="Area2D" parent="."]
-position = Vector2(420, 180)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
+[node name="ErrorSound" type="AudioStreamPlayer" parent="Audio"]
 
-[node name="Sprite" type="Sprite2D" parent="Card16"]
-texture = ExtResource("3")
+[node name="VictorySound" type="AudioStreamPlayer" parent="Audio"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card16"]
-shape = SubResource("1")
-
-[node name="Card2" type="Area2D" parent="."]
-position = Vector2(960, 360)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card2"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card2"]
-shape = SubResource("1")
-
-[node name="Card18" type="Area2D" parent="."]
-position = Vector2(1140, 360)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card18"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card18"]
-shape = SubResource("1")
-
-[node name="Card10" type="Area2D" parent="."]
-position = Vector2(600, 360)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card10"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card10"]
-shape = SubResource("1")
-
-[node name="Card6" type="Area2D" parent="."]
-position = Vector2(780, 360)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card6"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card6"]
-shape = SubResource("1")
-
-[node name="Card23" type="Area2D" parent="."]
-position = Vector2(1320, 360)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card23"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card23"]
-shape = SubResource("1")
-
-[node name="Card15" type="Area2D" parent="."]
-position = Vector2(420, 360)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card15"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card15"]
-shape = SubResource("1")
-
-[node name="Card3" type="Area2D" parent="."]
-position = Vector2(960, 540)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card3"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card3"]
-shape = SubResource("1")
-
-[node name="Card19" type="Area2D" parent="."]
-position = Vector2(1140, 540)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card19"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card19"]
-shape = SubResource("1")
-
-[node name="Card11" type="Area2D" parent="."]
-position = Vector2(600, 540)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card11"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card11"]
-shape = SubResource("1")
-
-[node name="Card7" type="Area2D" parent="."]
-position = Vector2(780, 540)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card7"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card7"]
-shape = SubResource("1")
-
-[node name="Card21" type="Area2D" parent="."]
-position = Vector2(1320, 540)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card21"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card21"]
-shape = SubResource("1")
-
-[node name="Card13" type="Area2D" parent="."]
-position = Vector2(420, 540)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card13"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card13"]
-shape = SubResource("1")
-
-[node name="Card4" type="Area2D" parent="."]
-position = Vector2(960, 720)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card4"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card4"]
-shape = SubResource("1")
-
-[node name="Card20" type="Area2D" parent="."]
-position = Vector2(1140, 720)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card20"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card20"]
-shape = SubResource("1")
-
-[node name="Card12" type="Area2D" parent="."]
-position = Vector2(600, 720)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card12"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card12"]
-shape = SubResource("1")
-
-[node name="Card8" type="Area2D" parent="."]
-position = Vector2(780, 720)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card8"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card8"]
-shape = SubResource("1")
-
-[node name="Card22" type="Area2D" parent="."]
-position = Vector2(1320, 720)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card22"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card22"]
-shape = SubResource("1")
-
-[node name="Card14" type="Area2D" parent="."]
-position = Vector2(420, 720)
-scale = Vector2(0.3, 0.3)
-gravity = 98.0
-script = ExtResource("2")
-
-[node name="Sprite" type="Sprite2D" parent="Card14"]
-texture = ExtResource("3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Card14"]
-shape = SubResource("1")
-
-[node name="CardOneName" type="RichTextLabel" parent="."]
-offset_left = 320.0
-offset_top = 880.0
-offset_right = 920.0
-offset_bottom = 980.0
-theme_override_fonts/normal_font = ExtResource("6_qtkwh")
-theme_override_font_sizes/normal_font_size = 60
-text = "Card 1 : Name"
-script = ExtResource("5")
-
-[node name="CardTwoName" type="RichTextLabel" parent="."]
-offset_left = 1000.0
-offset_top = 880.0
-offset_right = 1600.0
-offset_bottom = 980.0
-theme_override_fonts/normal_font = ExtResource("6_qtkwh")
-theme_override_font_sizes/normal_font_size = 60
-text = "Card 1 : Name"
-script = ExtResource("6")
-
-[node name="CheckBox" type="RichTextLabel" parent="."]
-offset_left = 920.0
-offset_top = 880.0
-offset_right = 1020.0
-offset_bottom = 980.0
-theme_override_fonts/normal_font = ExtResource("6_qtkwh")
-theme_override_font_sizes/normal_font_size = 60
-text = "?"
-
-[node name="NumberOfMatches" type="RichTextLabel" parent="."]
-offset_left = 320.0
-offset_top = 1000.0
-offset_right = 920.0
-offset_bottom = 1060.0
-theme_override_fonts/normal_font = ExtResource("6_qtkwh")
-theme_override_font_sizes/normal_font_size = 28
-text = "Number of Matches: 0"
-
-[node name="BackToMenuButton" type="Button" parent="."]
-offset_left = 20.0
-offset_top = 900.0
-offset_right = 240.0
-offset_bottom = 1000.0
-theme_override_fonts/font = ExtResource("6_qtkwh")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_cb42s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_lspja")
-text = "Back to Menu"
-
-[connection signal="button_down" from="BackToMenuButton" to="." method="_on_BackToMenuButton_button_down"]
+[node name="GameTimer" type="Timer" parent="."]
